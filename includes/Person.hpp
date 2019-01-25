@@ -21,7 +21,9 @@ class Person {
         int64_t getPESEL() const;
         string getLastName() const; 
         virtual void show() = 0;
+        virtual ostream& serialize(ostream& out) const = 0;
         virtual ~Person() {};
+        friend ostream& operator<<(ostream& output, const Person &b);
 
     protected:
         string name_;

@@ -20,3 +20,9 @@ void Student::show() {
          << (gender_ ? "female " : "male ") << address_ << " "
          << index_ << endl;
 }
+
+ostream& Student::serialize(ostream& out) const {
+    out << STUDENT_MARKER << "\n" << name_ << " " << lastName_ << " " << pesel_
+        << " " << gender_ << " " << address_ << " " << index_ << "\n";
+    return out;
+}

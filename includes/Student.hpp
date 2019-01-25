@@ -3,6 +3,8 @@
 
 using namespace std;
 
+#define STUDENT_MARKER 0
+
 class Student : public Person {
     public:
         Student(const string name,
@@ -13,6 +15,7 @@ class Student : public Person {
                 const int32_t index);
 
         virtual void show();
+        virtual ostream& serialize(ostream& out) const;
         int32_t getIndex() const;
 
     private:

@@ -4,6 +4,8 @@
 
 using namespace std;
 
+#define EMPLOYEE_MARKER 1
+
 class Employee : public Person {
     public:
         Employee(const string name,
@@ -14,6 +16,7 @@ class Employee : public Person {
                  const int income);
 
         virtual void show();
+        virtual ostream& serialize(ostream& out) const;
         int getIncome() const;
         void setIncome(const int newIncome);
 
