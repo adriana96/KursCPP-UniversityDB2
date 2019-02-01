@@ -16,6 +16,8 @@ using namespace std;
 #define MENU_SORT_NAME          10
 #define MENU_EXIT               11
 
+#define DATABASE_FILENAME "db.dat"
+
 void menuShow() {
     cout << "Program option:"   << endl;
     cout << MENU_SHOW           << ". Show students list" << endl;
@@ -45,6 +47,9 @@ int main() {
     assert(isPeselValid(std::stoll("04222978907"), Gender::Male) == PeselError::invalid_gender);
     assert(isPeselValid(std::stoll("04222978901"), Gender::Female) == PeselError::invalid_checksum);
     assert(isPeselValid(std::stoll("04222978907"), Gender::Female) == PeselError::valid_ok);
+
+    Database* db = new Database();
+    db->loadFromFile(DATABASE_FILENAME);
 
     do {
         menuShow();
