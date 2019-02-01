@@ -25,6 +25,6 @@ string Person::getLastName() const {
     return lastName_;
 }
 
-ostream& operator << (ostream& out, Person const& p) {
+ofstream& operator << (ofstream& out, Person const& p) {
     return p.serialize(out);
 }

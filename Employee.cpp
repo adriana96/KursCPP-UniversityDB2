@@ -25,7 +25,7 @@ void Employee::show() {
          << income_ << endl;
 }
 
-ostream& Employee::serialize(ostream& out) const {
+ofstream& Employee::serialize(ofstream& out) const {
     out << EMPLOYEE_MARKER << "\n" << name_ << " " << lastName_ << " " << pesel_
         << " " << gender_ << " " << address_ << " " << income_ << "\n";
     return out;

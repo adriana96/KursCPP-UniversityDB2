@@ -21,7 +21,7 @@ void Student::show() {
          << index_ << endl;
 }
 
-ostream& Student::serialize(ostream& out) const {
+ofstream& Student::serialize(ofstream& out) const {
     out << STUDENT_MARKER << "\n" << name_ << " " << lastName_ << " " << pesel_
         << " " << gender_ << " " << address_ << " " << index_ << "\n";
     return out;

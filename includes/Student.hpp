@@ -15,7 +15,7 @@ class Student : public Person {
                 const int32_t index);
 
         virtual void show();
-        virtual ostream& serialize(ostream& out) const;
+        virtual ofstream& serialize(ofstream& out) const;
         int32_t getIndex() const;
 
     private:

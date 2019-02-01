@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -21,9 +22,9 @@ class Person {
         int64_t getPESEL() const;
         string getLastName() const; 
         virtual void show() = 0;
-        virtual ostream& serialize(ostream& out) const = 0;
+        virtual ofstream& serialize(ofstream& out) const = 0;
         virtual ~Person() {};
-        friend ostream& operator<<(ostream& output, const Person &b);
+        friend ofstream& operator<<(ofstream& output, const Person &b);
 
     protected:
         string name_;

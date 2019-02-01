@@ -16,7 +16,7 @@ class Employee : public Person {
                  const int income);
 
         virtual void show();
-        virtual ostream& serialize(ostream& out) const;
+        virtual ofstream& serialize(ofstream& out) const;
         int getIncome() const;
         void setIncome(const int newIncome);
 
