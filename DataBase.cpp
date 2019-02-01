@@ -50,3 +50,24 @@ void Database::searchByLastname(const string lastname) {
     }
     else std::cout << "Person with lastname " << lastname << " not found" << endl;
 }
+
+void Database::modifyIncome(const uint newIncome, const int64_t pesel) {
+    auto iter = std::find_if(begin(db_), end(db_), [pesel](const Person * person ) {
+        return person->getPESEL() == pesel;
+    });
+    if (iter != db_.end()) {
+        Person * p = *iter;
+        Employee* e = dynamic_cast<Employee*>(p);
+        e->setIncome(newIncome);
+    }
+}
+
+void Database::modifyAddress(const string newAddress, const int64_t pesel) {
+    auto iter = std::find_if(begin(db_), end(db_), [pesel](const Person * person ) {
+        return person->getPESEL() == pesel;
+    });
+    if (iter != db_.end()) {
+        Person * p = *iter;
+        p->setAddress(newAddress);
+    }
+}

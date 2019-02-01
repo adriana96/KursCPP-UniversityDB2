@@ -18,8 +18,8 @@ class Person {
                const string address);
 
         void setAddress(const string newAddress);
-        int32_t getPESEL() const;
-        string getLastName() const;
+        int64_t getPESEL() const;
+        string getLastName() const; 
         virtual void show() = 0;
         virtual ~Person() {};
 
