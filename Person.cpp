@@ -17,7 +17,7 @@ void Person::setAddress(const string newAddress) {
     address_ = newAddress;
 }
 
-int32_t Person::getPESEL() const {
+int64_t Person::getPESEL() const {
     return pesel_;
 }
 
