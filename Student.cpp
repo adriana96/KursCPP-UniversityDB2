@@ -2,12 +2,12 @@
 
 using namespace std;
 
-Student::Student(const string name, 
-                 const string lastName, 
-                 const int64_t pesel, 
-                 const bool gender,      // true - male, false - female
+Student::Student(const string name,
+                 const string lastName,
+                 const int64_t pesel,
+                 const Gender gender,
                  const string address,
-                 const int32_t index) 
+                 const int32_t index)
     : Person(name, lastName, pesel, gender, address)
     , index_(index) {}
 
@@ -16,7 +16,7 @@ int32_t Student::getIndex() const {
 }
 
 void Student::show() {
-    cout << name_ << " " << lastName_ << " " << pesel_ << " " 
-         << (gender_ ? "male " : "female ") << address_ << " "
+    cout << name_ << " " << lastName_ << " " << pesel_ << " "
+         << (gender_ ? "female " : "male ") << address_ << " "
          << index_ << endl;
 }
