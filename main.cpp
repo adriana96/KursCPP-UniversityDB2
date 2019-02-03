@@ -16,9 +16,11 @@ using namespace std;
 #define MENU_SORT_NAME          10
 #define MENU_EXIT               11
 
+#define DATABASE_FILENAME "db.dat"
+
 void menuShow() {
     cout << "Program option:"   << endl;
-    cout << MENU_SHOW           << ". Show students list" << endl;
+    cout << MENU_SHOW           << ". Show database content" << endl;
     cout << MENU_NEW_STUDENT    << ". Add new student" << endl;
     cout << MENU_NEW_EMPLOYEE   << ". Add new employee" << endl;
     cout << MENU_SEARCH_NAME    << ". Search by last name" << endl;
@@ -46,13 +48,17 @@ int main() {
     assert(isPeselValid(std::stoll("04222978901"), Gender::Female) == PeselError::invalid_checksum);
     assert(isPeselValid(std::stoll("04222978907"), Gender::Female) == PeselError::valid_ok);
 
+    Database* db = new Database();
+    db->loadFromFile(DATABASE_FILENAME);
+
     do {
         menuShow();
         cin >> option;
 
         switch (option) {
             case MENU_SHOW :
-                cout << "Show students list" << endl;
+                cout << "Show database content" << endl;
+                db->showAll();
                 break;
             case MENU_NEW_STUDENT :
                 cout << "Add new student" << endl;
@@ -83,6 +89,7 @@ int main() {
                 break;
             case MENU_EXIT :
                 cout << "Exit (save to file)" << endl;
+                db->saveToFile(DATABASE_FILENAME);
                 break;
             default :
                 cout << "Unknown option " << option << "!" << endl;

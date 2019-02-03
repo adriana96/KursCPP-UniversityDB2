@@ -24,3 +24,7 @@ int64_t Person::getPESEL() const {
 string Person::getLastName() const {
     return lastName_;
 }
+
+ofstream& operator << (ofstream& out, Person const& p) {
+    return p.serialize(out);
+}
