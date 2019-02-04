@@ -20,8 +20,8 @@ class Person {
 
         void setAddress(const string newAddress);
         int64_t getPESEL() const;
-        string getLastName() const; 
-        virtual void show() = 0;
+        string getLastName() const;
+        virtual void show() const = 0;
         virtual ofstream& serialize(ofstream& out) const = 0;
         virtual ~Person() {};
         friend ofstream& operator<<(ofstream& output, const Person &b);

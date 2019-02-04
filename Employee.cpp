@@ -19,7 +19,7 @@ void Employee::setIncome(const int newIncome) {
     income_ = newIncome;
 }
 
-void Employee::show() {
+void Employee::show() const {
     cout << name_ << " " << lastName_ << " " << pesel_ << " "
          << (gender_ ? "male " : "female ") << address_ << " "
          << income_ << endl;

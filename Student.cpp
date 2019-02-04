@@ -15,7 +15,7 @@ int32_t Student::getIndex() const {
     return index_;
 }
 
-void Student::show() {
+void Student::show() const {
     cout << name_ << " " << lastName_ << " " << pesel_ << " "
          << (gender_ ? "female " : "male ") << address_ << " "
          << index_ << endl;
