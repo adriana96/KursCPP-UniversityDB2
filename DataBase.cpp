@@ -1,4 +1,6 @@
 #include "DataBase.hpp"
+#include <algorithm>
+#include <fstream>
 
 void Database::sortByPESEL() {
     std::sort(begin(db_), end(db_), [](const auto one, const auto two) {
