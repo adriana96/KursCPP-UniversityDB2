@@ -28,27 +28,32 @@ void Database::sortByIncome() {
     });
 }
 
-void Database::searchByPESEL(const int64_t pesel) {
+Person* Database::searchByPESEL(const int64_t pesel) {
      std::vector<Person*>::iterator iter = std::find_if(begin(db_), end(db_), [pesel](Person * person) {
              return person->getPESEL() == pesel;
      });
      if (iter != end(db_)) {
          Person* p = *iter;
-         p->show();
+         return p;
      }
-     else std::cout << "Person with PESEL " << pesel << " not found" << endl;
+     else {
+         std::cout << "Person with PESEL " << pesel << " not found" << endl;
+         return NULL;
+     }
 }
 
-void Database::searchByLastname(const string lastname) {
+Person* Database::searchByLastname(const string lastname) {
     std::vector<Person*>::iterator iter = std::find_if(begin(db_), end(db_), [lastname](Person * person) {
        return person->getLastName() == lastname;
     });
     if (iter != end(db_)) {
-        std::cout << "Found!!!" << endl;
         Person* p = *iter;
-        p->show();
+        return p;
     }
-    else std::cout << "Person with lastname " << lastname << " not found" << endl;
+    else {
+        std::cout << "Person with lastname " << lastname << " not found" << endl;
+        return NULL;
+    }
 }
 
 void Database::modifyIncome(const uint newIncome, const int64_t pesel) {
