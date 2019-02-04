@@ -42,7 +42,7 @@ Person* Database::searchByPESEL(const int64_t pesel) {
      }
 }
 
-Person* Database::searchByLastname(const string lastname) {
+Person* Database::searchByLastname(const string & lastname) {
     auto iter = std::find_if(begin(db_), end(db_), [lastname](const Person * person) {
        return person->getLastName() == lastname;
     });
@@ -67,7 +67,7 @@ void Database::modifyIncome(const int newIncome, const int64_t pesel) {
     }
 }
 
-void Database::modifyAddress(const string newAddress, const int64_t pesel) {
+void Database::modifyAddress(const string & newAddress, const int64_t pesel) {
     auto iter = std::find_if(begin(db_), end(db_), [pesel](const Person * person ) {
         return person->getPESEL() == pesel;
     });
@@ -77,7 +77,7 @@ void Database::modifyAddress(const string newAddress, const int64_t pesel) {
     }
 }
 
-void Database::loadFromFile(const string filename) {
+void Database::loadFromFile(const string & filename) {
     std::string value1, value2, value3, value5;
     bool value4;
     long value6;
@@ -115,7 +115,7 @@ void Database::loadFromFile(const string filename) {
     data.close();
 }
 
-void Database::saveToFile(const string filename) {
+void Database::saveToFile(const string & filename) {
     std::ofstream data;
 
     data.open(filename, std::ofstream::out);
