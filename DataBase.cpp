@@ -56,7 +56,7 @@ Person* Database::searchByLastname(const string lastname) {
     }
 }
 
-void Database::modifyIncome(const uint newIncome, const int64_t pesel) {
+void Database::modifyIncome(const int newIncome, const int64_t pesel) {
     auto iter = std::find_if(begin(db_), end(db_), [pesel](const Person * person ) {
         return person->getPESEL() == pesel;
     });

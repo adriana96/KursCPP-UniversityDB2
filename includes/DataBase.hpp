@@ -13,7 +13,7 @@ class Database {
     public:
         void addItem(Person * person);
         void removeByPESEL(const int64_t pesel);
-        void modifyIncome(const uint newIncome, const int64_t pesel);
+        void modifyIncome(const int newIncome, const int64_t pesel);
         void modifyAddress(const string newAddress, const int64_t pesel);
         void sortByLastname();
         void sortByPESEL();
