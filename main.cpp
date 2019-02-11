@@ -4,38 +4,9 @@
 
 using namespace std;
 
-#define MENU_SHOW               1
-#define MENU_NEW_STUDENT        2
-#define MENU_NEW_EMPLOYEE       3
-#define MENU_SEARCH_NAME        4
-#define MENU_SEARCH_PESEL       5
-#define MENU_REMOVE_PESEL       6
-#define MENU_MODIFY_PESEL       7
-#define MENU_SORT_SALARY        8
-#define MENU_SORT_PESEL         9
-#define MENU_SORT_NAME          10
-#define MENU_EXIT               11
-
 #define DATABASE_FILENAME "db.dat"
 
-void menuShow() {
-    cout << "Program option:"   << endl;
-    cout << MENU_SHOW           << ". Show database content" << endl;
-    cout << MENU_NEW_STUDENT    << ". Add new student" << endl;
-    cout << MENU_NEW_EMPLOYEE   << ". Add new employee" << endl;
-    cout << MENU_SEARCH_NAME    << ". Search by last name" << endl;
-    cout << MENU_SEARCH_PESEL   << ". Search by PESEL" << endl;
-    cout << MENU_REMOVE_PESEL   << ". Remove by PESEL" << endl ;
-    cout << MENU_MODIFY_PESEL   << ". Modify emplyee by PESEL" << endl;
-    cout << MENU_SORT_SALARY    << ". Sort by salary" << endl;
-    cout << MENU_SORT_PESEL     << ". Sort by PESEL" << endl;
-    cout << MENU_SORT_NAME      << ". Sort by last name" << endl;
-    cout << MENU_EXIT           << ". Exit" << endl;
-}
-
 int main() {
-    int option;
-
     // Clear terminal
     cout << "\033[2J\033[1;1H";
 
@@ -51,53 +22,45 @@ int main() {
     Database* db = new Database();
     db->loadFromFile(DATABASE_FILENAME);
 
-    do {
-        menuShow();
-        cin >> option;
+    Student* s1 = new Student("Jan", "Kowalski", std::stoll("04222978907"), Gender::Male, "addr1", 161234);
+    Student* s2 = new Student("Janina", "Kowalska", std::stoll("02221200120"), Gender::Female, "addr2", 161235);
+    Student* s3 = new Student("Grazyna", "Kowalska", std::stoll("02221200140"), Gender::Female, "addr3", 161236);
+    Student* s4 = new Student("Sabina", "Kowalska", std::stoll("02221200160"), Gender::Female, "addr4", 161237);
+    Employee* e1 = new Employee("Adam", "Nowak", std::stoll("89082013830"), Gender::Male, "addr5", 12000);
+    Employee* e2 = new Employee("Ewa", "Nowak", std::stoll("89082013820"), Gender::Female, "addr6", 3500);
 
-        switch (option) {
-            case MENU_SHOW :
-                cout << "Show database content" << endl;
-                db->showAll();
-                break;
-            case MENU_NEW_STUDENT :
-                cout << "Add new student" << endl;
-                break;
-            case MENU_NEW_EMPLOYEE :
-                cout << "Add new employee" << endl;
-                break;
-            case MENU_SEARCH_NAME :
-                cout << "Search by last name" << endl;
-                break;
-            case MENU_SEARCH_PESEL :
-                cout << "Search by PESEL" << endl;
-                break;
-            case MENU_REMOVE_PESEL :
-                cout << "Remove by PESEL" << endl ;
-                break;
-            case MENU_MODIFY_PESEL :
-                cout << "Modify emplyee by PESEL" << endl;
-                break;
-            case MENU_SORT_SALARY :
-                cout << "Sort by salary" << endl;
-                break;
-            case MENU_SORT_PESEL :
-                cout << "Sort by PESEL" << endl;
-                break;
-            case MENU_SORT_NAME :
-                cout << "Sort by last name" << endl;
-                break;
-            case MENU_EXIT :
-                cout << "Exit (save to file)" << endl;
-                db->saveToFile(DATABASE_FILENAME);
-                break;
-            default :
-                cout << "Unknown option " << option << "!" << endl;
-                break;
-        }
+    if (!db->searchByPESEL(s1->getPESEL())) db->addItem(s1);
+    if (!db->searchByPESEL(s2->getPESEL())) db->addItem(s2);
+    if (!db->searchByPESEL(s3->getPESEL())) db->addItem(s3);
+    if (!db->searchByPESEL(s4->getPESEL())) db->addItem(s4);
+    if (!db->searchByPESEL(e1->getPESEL())) db->addItem(e1);
+    if (!db->searchByPESEL(e2->getPESEL())) db->addItem(e2);
 
-        cout << endl;
-    } while (option != MENU_EXIT);
+    cout << "===== Show all =====" << endl;
+    db->showAll();
+
+    cout << endl << "===== Search function test =====" << endl;
+    db->searchByPESEL(89082013830)->show();
+    db->searchByLastname("Nowak")->show();
+
+    cout << endl << "===== Sort by PESEL =====" << endl;
+    db->sortByPESEL();
+    db->showAll();
+
+    cout << endl << "===== Sort by Last name =====" << endl;
+    db->sortByLastname();
+    db->showAll();
+
+    cout << endl << "===== Sort by Income =====" << endl;
+    db->sortByIncome();
+    db->showAll();
+
+    cout << endl << "===== Modify function test =====" << endl;
+    db->modifyIncome(e2->getIncome()+1, e2->getPESEL());
+    db->modifyAddress("addr11", s1->getPESEL());
+    db->showAll();
+
+    db->saveToFile(DATABASE_FILENAME);
 
     return 0;
 }

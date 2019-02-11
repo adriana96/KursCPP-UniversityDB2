@@ -1,7 +1,9 @@
 #include "DataBase.hpp"
+#include <algorithm>
+#include <fstream>
 
 void Database::sortByPESEL() {
-    std::sort(begin(db_), end(db_), [](Person * one, Person * two) {
+    std::sort(begin(db_), end(db_), [](const auto one, const auto two) {
         return one->getPESEL() < two->getPESEL();
     });
 }
@@ -15,43 +17,48 @@ void Database::showAll() {
 }
 
 void Database::sortByLastname() {
-    std::sort(begin(db_), end(db_), [](const Person * one, const Person * two) {
+    std::sort(begin(db_), end(db_), [](const auto one, const auto two) {
         return one->getLastName() < two->getLastName();
     });
 }
 
 void Database::sortByIncome() {
-    std::sort(begin(db_), end(db_), [](Person * one, Person * two) {
+    std::sort(begin(db_), end(db_), [](const auto one, const auto two) {
         Employee* e1 = dynamic_cast<Employee*>(one);
         Employee* e2 = dynamic_cast<Employee*>(two);
         return (e1 ? e1->getIncome() : 0) > (e2 ? e2->getIncome() : 0);
     });
 }
 
-void Database::searchByPESEL(const int64_t pesel) {
-     std::vector<Person*>::iterator iter = std::find_if(begin(db_), end(db_), [pesel](Person * person) {
+Person* Database::searchByPESEL(const int64_t pesel) {
+     auto iter = std::find_if(begin(db_), end(db_), [pesel](const Person * person) {
              return person->getPESEL() == pesel;
      });
      if (iter != end(db_)) {
          Person* p = *iter;
-         p->show();
+         return p;
      }
-     else std::cout << "Person with PESEL " << pesel << " not found" << endl;
+     else {
+         std::cout << "Person with PESEL " << pesel << " not found" << endl;
+         return NULL;
+     }
 }
 
-void Database::searchByLastname(const string lastname) {
-    std::vector<Person*>::iterator iter = std::find_if(begin(db_), end(db_), [lastname](Person * person) {
+Person* Database::searchByLastname(const string & lastname) {
+    auto iter = std::find_if(begin(db_), end(db_), [lastname](const Person * person) {
        return person->getLastName() == lastname;
     });
     if (iter != end(db_)) {
-        std::cout << "Found!!!" << endl;
         Person* p = *iter;
-        p->show();
+        return p;
     }
-    else std::cout << "Person with lastname " << lastname << " not found" << endl;
+    else {
+        std::cout << "Person with lastname " << lastname << " not found" << endl;
+        return NULL;
+    }
 }
 
-void Database::modifyIncome(const uint newIncome, const int64_t pesel) {
+void Database::modifyIncome(const int newIncome, const int64_t pesel) {
     auto iter = std::find_if(begin(db_), end(db_), [pesel](const Person * person ) {
         return person->getPESEL() == pesel;
     });
@@ -62,7 +69,7 @@ void Database::modifyIncome(const uint newIncome, const int64_t pesel) {
     }
 }
 
-void Database::modifyAddress(const string newAddress, const int64_t pesel) {
+void Database::modifyAddress(const string & newAddress, const int64_t pesel) {
     auto iter = std::find_if(begin(db_), end(db_), [pesel](const Person * person ) {
         return person->getPESEL() == pesel;
     });
@@ -72,7 +79,7 @@ void Database::modifyAddress(const string newAddress, const int64_t pesel) {
     }
 }
 
-void Database::loadFromFile(const string filename) {
+void Database::loadFromFile(const string & filename) {
     std::string value1, value2, value3, value5;
     bool value4;
     long value6;
@@ -110,7 +117,7 @@ void Database::loadFromFile(const string filename) {
     data.close();
 }
 
-void Database::saveToFile(const string filename) {
+void Database::saveToFile(const string & filename) {
     std::ofstream data;
 
     data.open(filename, std::ofstream::out);
